@@ -22,4 +22,8 @@ public class TransacaoService {
 
         listaTransacoes.add(dto);
     }
+
+    public void limpaTransacoes() {
+        listaTransacoes.clear();
+    }
 }
