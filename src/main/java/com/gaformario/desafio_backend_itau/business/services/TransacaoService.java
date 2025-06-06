@@ -26,6 +26,7 @@ public class TransacaoService {
         }
 
         listaTransacoes.add(dto);
+        log.info("Transação adicionada com sucesso");
     }
 
     public void limpaTransacoes() {
