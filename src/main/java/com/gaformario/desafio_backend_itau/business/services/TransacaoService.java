@@ -35,8 +35,6 @@ public class TransacaoService {
     }
 
     public List<TransacaoRequestDTO> buscaTransacoes(Integer intervalo) {
-        log.info("Busca de transações com o seguinte intervalo de tempo {}", intervalo);
-
         OffsetDateTime dataHoraIntervalo = OffsetDateTime.now().minusSeconds(intervalo);
 
         log.info("Transações retornadas com sucesso");
