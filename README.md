@@ -15,6 +15,7 @@ Repositório de origem do desafio: https://github.com/rafaellins-itau/desafio-it
 - Lombok
 - Swagger/OpenAPI 3
 - Docker
+- JUnit e Mockito
 
 
 ## Configuração do Projeto
