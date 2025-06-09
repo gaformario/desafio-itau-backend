@@ -1,7 +1,8 @@
 package com.gaformario.desafio_backend_itau.business.services;
 
 import com.gaformario.desafio_backend_itau.controller.dto.TransacaoRequestDTO;
-import com.gaformario.desafio_backend_itau.infrastrucutre.exceptions.UnprocessableEntity;
+import com.gaformario.desafio_backend_itau.infrastructure.entities.Transacao;
+import com.gaformario.desafio_backend_itau.infrastructure.exceptions.UnprocessableEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TransacaoService {
 
-    private final List<TransacaoRequestDTO> listaTransacoes = new ArrayList<>();
+    private final List<Transacao> listaTransacoes = new ArrayList<>();
 
     public void adicionaTransacao(TransacaoRequestDTO dto) {
         log.info("Processo para adicionar nova transação: {}", dto);
@@ -25,7 +26,8 @@ public class TransacaoService {
             throw new UnprocessableEntity("Campos inválidos na criação da transação");
         }
 
-        listaTransacoes.add(dto);
+        Transacao novaTransacao = new Transacao(dto.valor(), dto.dataHora());
+        listaTransacoes.add(novaTransacao);
         log.info("Transação adicionada com sucesso");
     }
 
@@ -35,12 +37,12 @@ public class TransacaoService {
         log.info("Transações deletadas com sucesso");
     }
 
-    public List<TransacaoRequestDTO> buscaTransacoes(Integer intervalo) {
+    public List<Transacao> buscaTransacoes(Integer intervalo) {
         OffsetDateTime dataHoraIntervalo = OffsetDateTime.now().minusSeconds(intervalo);
 
         log.info("Transações retornadas com sucesso");
-        return listaTransacoes.stream().
-                filter( transacoes -> transacoes.dataHora()
-                        .isAfter(dataHoraIntervalo)).toList();
+        return listaTransacoes.stream()
+                .filter(transacao -> transacao.getDataHora().isAfter(dataHoraIntervalo))
+                .toList();
     }
 }

@@ -1,4 +1,4 @@
-package com.gaformario.desafio_backend_itau.infrastrucutre.exceptions;
+package com.gaformario.desafio_backend_itau.infrastructure.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

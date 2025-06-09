@@ -1,6 +1,6 @@
 package com.gaformario.desafio_backend_itau.controller;
 
-import com.gaformario.desafio_backend_itau.business.services.EstatiscaService;
+import com.gaformario.desafio_backend_itau.business.services.EstatisticaService;
 import com.gaformario.desafio_backend_itau.controller.dto.EstatisticasResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 class EstatisticaControllerTest {
 
     @Mock
-    private EstatiscaService estatiscaService;
+    private EstatisticaService estatisticaService;
 
     @InjectMocks
     private EstatisticaController estatisticaController;
@@ -26,12 +26,12 @@ class EstatisticaControllerTest {
     @Test
     void deveRetornarEstatisticasAoObterEstatisticas() {
         EstatisticasResponseDTO dto = new EstatisticasResponseDTO(1L, 100.0, 100.0, 100.0, 100.0);
-        when(estatiscaService.estatiscasTransacoes(60)).thenReturn(dto);
+        when(estatisticaService.estatiscasTransacoes(60)).thenReturn(dto);
 
         ResponseEntity<EstatisticasResponseDTO> response = estatisticaController.obterEstatisticas(60);
 
         assertEquals(200, response.getStatusCodeValue());
         assertEquals(dto, response.getBody());
-        verify(estatiscaService, times(1)).estatiscasTransacoes(60);
+        verify(estatisticaService, times(1)).estatiscasTransacoes(60);
     }
 }

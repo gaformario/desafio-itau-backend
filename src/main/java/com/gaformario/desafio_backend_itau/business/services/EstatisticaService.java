@@ -1,7 +1,7 @@
 package com.gaformario.desafio_backend_itau.business.services;
 
 import com.gaformario.desafio_backend_itau.controller.dto.EstatisticasResponseDTO;
-import com.gaformario.desafio_backend_itau.controller.dto.TransacaoRequestDTO;
+import com.gaformario.desafio_backend_itau.infrastructure.entities.Transacao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class EstatiscaService {
+public class EstatisticaService {
 
     public final TransacaoService transacaoService;
 
@@ -21,7 +21,7 @@ public class EstatiscaService {
 
         long inicio = System.currentTimeMillis();
 
-        List<TransacaoRequestDTO> transacoes = transacaoService.buscaTransacoes(intervalo);
+        List<Transacao> transacoes = transacaoService.buscaTransacoes(intervalo);
 
         if (transacoes.isEmpty()) {
             log.warn("Nenhuma transação encontrada no intervalo especificado.");
@@ -31,7 +31,7 @@ public class EstatiscaService {
         }
 
         DoubleSummaryStatistics stats = transacoes.stream()
-                .mapToDouble(TransacaoRequestDTO::valor).summaryStatistics();
+                .mapToDouble(Transacao::getValor).summaryStatistics();
 
         long fim = System.currentTimeMillis();
 

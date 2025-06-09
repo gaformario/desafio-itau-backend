@@ -1,7 +1,7 @@
 package com.gaformario.desafio_backend_itau.business.services;
 
 import com.gaformario.desafio_backend_itau.controller.dto.EstatisticasResponseDTO;
-import com.gaformario.desafio_backend_itau.controller.dto.TransacaoRequestDTO;
+import com.gaformario.desafio_backend_itau.infrastructure.entities.Transacao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,27 +13,27 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class EstatiscaServiceTest {
+class EstatisticaServiceTest {
 
     private TransacaoService transacaoService;
-    private EstatiscaService estatiscaService;
+    private EstatisticaService estatisticaService;
 
     @BeforeEach
     void setUp() {
         transacaoService = mock(TransacaoService.class);
-        estatiscaService = new EstatiscaService(transacaoService);
+        estatisticaService = new EstatisticaService(transacaoService);
     }
 
     @Test
     void deveRetornarEstatisticasCorretasQuandoExistemTransacoes() {
-        List<TransacaoRequestDTO> transacoes = Arrays.asList(
-                new TransacaoRequestDTO(10.0, OffsetDateTime.now().minusSeconds(10)),
-                new TransacaoRequestDTO(20.0, OffsetDateTime.now().minusSeconds(20)),
-                new TransacaoRequestDTO(30.0, OffsetDateTime.now().minusSeconds(30))
+        List<Transacao> transacoes = Arrays.asList(
+                new Transacao(10.0, OffsetDateTime.now().minusSeconds(10)),
+                new Transacao(20.0, OffsetDateTime.now().minusSeconds(20)),
+                new Transacao(30.0, OffsetDateTime.now().minusSeconds(30))
         );
         when(transacaoService.buscaTransacoes(60)).thenReturn(transacoes);
 
-        EstatisticasResponseDTO stats = estatiscaService.estatiscasTransacoes(60);
+        EstatisticasResponseDTO stats = estatisticaService.estatiscasTransacoes(60);
 
         assertEquals(3L, stats.count());
         assertEquals(60.0, stats.sum());
@@ -46,7 +46,7 @@ class EstatiscaServiceTest {
     void deveRetornarZerosQuandoNaoExistemTransacoes() {
         when(transacaoService.buscaTransacoes(60)).thenReturn(Collections.emptyList());
 
-        EstatisticasResponseDTO stats = estatiscaService.estatiscasTransacoes(60);
+        EstatisticasResponseDTO stats = estatisticaService.estatiscasTransacoes(60);
 
         assertEquals(0L, stats.count());
         assertEquals(0.0, stats.sum());

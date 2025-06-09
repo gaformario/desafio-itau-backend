@@ -1,6 +1,6 @@
 package com.gaformario.desafio_backend_itau.controller;
 
-import com.gaformario.desafio_backend_itau.business.services.EstatiscaService;
+import com.gaformario.desafio_backend_itau.business.services.EstatisticaService;
 import com.gaformario.desafio_backend_itau.controller.dto.EstatisticasResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("estatistica")
 public class EstatisticaController {
 
-    private final EstatiscaService estatiscaService;
+    private final EstatisticaService estatisticaService;
 
     @GetMapping
     @Operation(summary = "Obtém as estatísticas de transações durante um intervalo de tempo")
@@ -27,6 +27,6 @@ public class EstatisticaController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<EstatisticasResponseDTO> obterEstatisticas(@RequestParam(value = "intervalo", required = false, defaultValue = "60") Integer intervalo) {
-        return ResponseEntity.ok(estatiscaService.estatiscasTransacoes(intervalo));
+        return ResponseEntity.ok(estatisticaService.estatiscasTransacoes(intervalo));
     }
 }

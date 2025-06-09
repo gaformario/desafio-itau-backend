@@ -1,7 +1,8 @@
 package com.gaformario.desafio_backend_itau.business.services;
 
 import com.gaformario.desafio_backend_itau.controller.dto.TransacaoRequestDTO;
-import com.gaformario.desafio_backend_itau.infrastrucutre.exceptions.UnprocessableEntity;
+import com.gaformario.desafio_backend_itau.infrastructure.entities.Transacao;
+import com.gaformario.desafio_backend_itau.infrastructure.exceptions.UnprocessableEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +44,7 @@ class TransacaoServiceTest {
         TransacaoRequestDTO dto = new TransacaoRequestDTO(100.0, OffsetDateTime.now().minusMinutes(1));
         transacaoService.adicionaTransacao(dto);
         transacaoService.limpaTransacoes();
-        List<TransacaoRequestDTO> transacoes = transacaoService.buscaTransacoes(60);
+        List<Transacao> transacoes = transacaoService.buscaTransacoes(60);
         assertTrue(transacoes.isEmpty());
     }
 }
