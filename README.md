@@ -7,7 +7,7 @@ Repositório de origem do desafio: https://github.com/rafaellins-itau/desafio-it
 
 ## Tecnologias Utilizadas
 
-- Java 17+
+- Java 21
 - Spring Boot
 - Maven
 - Spring Web
